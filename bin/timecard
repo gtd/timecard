@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby -w
+
+require 'time_card'
+
+TimeCard.invoke
