@@ -8,6 +8,11 @@ module TimeCard
       @tasks = []
       @new_input = nil
 
+      Signal.trap("INT") do
+        dump_tasks
+        exit(0)
+      end
+
       state_loop(:ask_task)
     end
 
@@ -73,8 +78,20 @@ module TimeCard
       return :ask_task
     end
 
+    def dump_tasks
+      if @tasks.any?
+        puts "\n"
+        i = 0
+        @tasks.each do |task|
+          i += 1
+          puts "Task ##{i}: #{task[:name]} #{format_seconds(sum_time_pairs(task))}"
+          task[:time_pairs].each { |pair| puts "  " + pair.inspect }
+        end
+      end
+    end
+
     private
-    
+
     def format_seconds(seconds)
       seconds = seconds.to_i
       minutes = seconds / 60
@@ -95,6 +112,7 @@ module TimeCard
       system("stty raw -echo") #=> Raw mode, no echo
       char = $stdin.getc
       system("stty -raw echo") #=> Reset terminal mode
+      Process.kill("INT", $$) if char == "\u0003"
       char
     end
 
