@@ -42,7 +42,7 @@ module TimeCard
         return next_state if next_state
 
         elapsed = Time.now - @start_time
-        $stderr.print "\r\e[0K*#{format_seconds(sum_time_pairs(@tasks.last) + elapsed)} * #{@task_name} (p = pause, f = done)"
+        $stderr.print "\r\e[0K*#{format_seconds(sum_time_pairs(@tasks.last) + elapsed)} * #{@task_name} (p: pause   f: next task   q: finish & quit)"
         sleep(0.5)
       end
     end
@@ -56,6 +56,8 @@ module TimeCard
         :pause_task
       when 'f'
         :finish_task
+      when 'q'
+        :finish_and_quit
       end
     end
 
@@ -74,8 +76,15 @@ module TimeCard
 
     def finish_task
       $stderr.print "\r\e[0K"
-      $stdout.puts ">#{format_seconds(sum_time_pairs(@tasks.last))} #{@tasks.last[:name]}"
+      $stderr.puts ">#{format_seconds(sum_time_pairs(@tasks.last))} #{@tasks.last[:name]}"
       return :ask_task
+    end
+
+    def finish_and_quit
+      $stderr.print "\r\e[0K"
+      $stderr.puts ">#{format_seconds(sum_time_pairs(@tasks.last))} #{@tasks.last[:name]}"
+      dump_tasks
+      exit(0)
     end
 
     def dump_tasks
@@ -85,7 +94,7 @@ module TimeCard
         @tasks.each do |task|
           i += 1
           puts "Task ##{i}: #{task[:name]} #{format_seconds(sum_time_pairs(task))}"
-          task[:time_pairs].each { |pair| puts "  " + pair.inspect }
+          task[:time_pairs].each { |pair| puts "  " + pair.inspect + " " + format_seconds(pair.last - pair.first) }
         end
       end
     end
