@@ -33,16 +33,23 @@ module TimeCard
     end
 
     def time_loop
-      @start_time = Time.now
+      @start_time = @last_time = Time.now
 
       await_input
 
       loop do
+        if (Time.now - @last_time) > 5.0
+          $stderr.puts "#{clearline}Detected Sleep Auto-Pausing for #{format_seconds(Time.now - @last_time)}"
+          @tasks.last[:time_pairs] << [@start_time, @last_time]
+          @start_time = Time.now
+        end
+
         next_state = process_input { |input| time_loop_transition(input) }
         return next_state if next_state
 
         elapsed = Time.now - @start_time
         $stderr.print "#{clearline}*#{format_seconds(sum_time_pairs(@tasks.last) + elapsed)} * #{@task_name} (p: pause   f: next task   q: finish & quit)"
+        @last_time = Time.now
         sleep(0.5)
       end
     end
