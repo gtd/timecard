@@ -42,7 +42,7 @@ module TimeCard
         return next_state if next_state
 
         elapsed = Time.now - @start_time
-        $stderr.print "\r\e[0K*#{format_seconds(sum_time_pairs(@tasks.last) + elapsed)} * #{@task_name} (p: pause   f: next task   q: finish & quit)"
+        $stderr.print "#{clearline}*#{format_seconds(sum_time_pairs(@tasks.last) + elapsed)} * #{@task_name} (p: pause   f: next task   q: finish & quit)"
         sleep(0.5)
       end
     end
@@ -62,7 +62,7 @@ module TimeCard
     end
 
     def pause_task
-      $stderr.print "\r\e[0K*#{format_seconds(sum_time_pairs(@tasks.last))} * #{@task_name} (paused, any key to resume)"
+      $stderr.print "#{clearline}*#{format_seconds(sum_time_pairs(@tasks.last))} * #{@task_name} (paused, any key to resume)"
 
       await_input
 
@@ -75,13 +75,13 @@ module TimeCard
     end
 
     def finish_task
-      $stderr.print "\r\e[0K"
+      $stderr.print clearline
       $stderr.puts ">#{format_seconds(sum_time_pairs(@tasks.last))} #{@tasks.last[:name]}"
       return :ask_task
     end
 
     def finish_and_quit
-      $stderr.print "\r\e[0K"
+      $stderr.print clearline
       $stderr.puts ">#{format_seconds(sum_time_pairs(@tasks.last))} #{@tasks.last[:name]}"
       dump_tasks
       exit(0)
@@ -123,6 +123,10 @@ module TimeCard
       system("stty -raw echo") #=> Reset terminal mode
       Process.kill("INT", $$) if char == "\u0003"
       char
+    end
+
+    def clearline
+      "\r\e[0K"
     end
 
     def sum_time_pairs(task)
