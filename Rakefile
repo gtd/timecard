@@ -9,6 +9,8 @@ Jeweler::Tasks.new do |gem|
   gem.email = "gabe@websaviour.com"
   gem.authors = ["Gabe da Silveira"]
 
+  gem.bindir = 'bin'
+
   gem.add_development_dependency "rspec", "~> 2.3.0"
   gem.add_development_dependency "jeweler", "~> 1.6.3"
   gem.add_development_dependency "rcov", ">= 0"
