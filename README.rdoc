@@ -22,6 +22,8 @@ you can redirect to a log for future reference:
 
 * Separate the state machine and core functionality from the CLI interface so it can be plugged into a web UI or
   something that works on Windows.
+* Write some meaningful specs.  Obviously this will be much easier when CLI concerns aren't woven throughout the core
+  logic.
 
 == Copyright
 
