@@ -1,4 +1,4 @@
-module TimeCard
+module Timecard
   DEBUG = false
 
   class << self
