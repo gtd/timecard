@@ -1,0 +1,5 @@
+= 0.0.1 (2011-07-04)
+
+* Initial release
+* Basic CLI Interface (I assume it won't work on Windows due to TTY tricks)
+* Automatically pauses when the computer sleeps
