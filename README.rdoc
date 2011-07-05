@@ -1,19 +1,28 @@
-= timecard
+= Timecard
 
-Description goes here.
+This is a simple CLI time tracker.  You start it, you type in a task and it displays a running timer which can be
+paused.  When you are finished it will output a summary of tasks with individual time segments broken down.
 
-== Contributing to timecard
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+== Installation
+
+  gem install timecard
+
+== Usage
+
+The a binary utility is installed with the gem, simply call:
+
+  timecard
+
+And you're off to the races.  Note that the interactive text goes to STDERR while the final summary goes to STDOUT, so
+you can redirect to a log for future reference:
+
+  timecard > time.log
+
+== TODO
+
+* Separate the state machine and core functionality from the CLI interface so it can be plugged into a web UI or
+  something that works on Windows.
 
 == Copyright
 
-Copyright (c) 2011 Gabe da Silveira. See LICENSE.txt for
-further details.
-
+Copyright (c) 2011 Gabe da Silveira. See LICENSE.txt for further details.
