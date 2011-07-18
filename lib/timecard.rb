@@ -55,10 +55,7 @@ module Timecard
     end
 
     def time_loop_transition(command)
-      @tasks.last[:time_pairs] << [@start_time, Time.now]
-      @start_time = nil
-
-      case command
+      valid_command = case command
       when 'p'
         :pause_task
       when 'f'
@@ -66,6 +63,15 @@ module Timecard
       when 'q'
         :finish_and_quit
       end
+
+      if ! valid_command
+        await_input
+      else
+        @tasks.last[:time_pairs] << [@start_time, Time.now]
+        @start_time = nil
+      end
+
+      valid_command
     end
 
     def pause_task
