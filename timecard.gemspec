@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{timecard}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gabe da Silveira"]
-  s.date = %q{2011-07-05}
+  s.date = %q{2011-07-18}
   s.description = %q{Simple UNIX shell time tracker}
   s.email = %q{gabe@websaviour.com}
   s.executables = ["timecard"]
@@ -26,7 +26,8 @@ Gem::Specification.new do |s|
     "bin/timecard",
     "lib/timecard.rb",
     "spec/spec_helper.rb",
-    "spec/timecard_spec.rb"
+    "spec/timecard_spec.rb",
+    "timecard.gemspec"
   ]
   s.homepage = %q{http://github.com/dasil003/timecard}
   s.licenses = ["MIT"]
