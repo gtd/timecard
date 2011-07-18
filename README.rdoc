@@ -24,6 +24,8 @@ you can redirect to a log for future reference:
   something that works on Windows.
 * Write some meaningful specs.  Obviously this will be much easier when CLI concerns aren't woven throughout the core
   logic.
+* Fix the fact that long strings of input to the single-key CLI result in delayed action.  eg. type in "uiop" when the
+  task counter is running and it will pause after 0.4 seconds (even though the input disappears within 0.1 seconds).
 
 == Copyright
 
