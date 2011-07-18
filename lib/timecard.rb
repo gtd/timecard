@@ -83,7 +83,7 @@ module Timecard
         next_state = process_input { |input| :time_loop }
         return next_state if next_state
 
-        sleep(0.5)
+        sleep(0.1)
       end
     end
 
