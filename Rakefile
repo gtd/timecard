@@ -2,7 +2,7 @@ require 'jeweler'
 
 Jeweler::Tasks.new do |gem|
   gem.name = "timecard"
-  gem.homepage = "http://github.com/dasil003/timecard"
+  gem.homepage = "http://github.com/gtd/timecard"
   gem.license = "MIT"
   gem.summary = "Simple CLI time tracker"
   gem.description = "Simple UNIX shell time tracker"
